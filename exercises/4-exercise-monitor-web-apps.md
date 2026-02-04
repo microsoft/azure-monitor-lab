@@ -16,7 +16,66 @@ In Exercise 2, you configure monitoring for web applications.
 Launch the exercise and follow the instructions. When you're done, be sure to return to this page so you can continue learning.
 
 > [!NOTE]
-> To complete this lab you will need an [Azure subscription](https://azure.microsoft.com/pricing/purchase-options/azure-account?cid=msft_learn).
+> To complete this lab you will need an [Azure subscription](https://azure.microsoft.com/pricing/purchase-options/azure-account?cid=msft_devrel).
 
-[:::image type="content" source="../media/launch-exercise-button.png" alt-text="Button to launch exercise.":::
-](https://microsoftlearning.github.io/AZ-1004-deploy-configure-azure-monitor/Instructions/Labs/LAB_03_exercise_monitor_web_apps.html)
+This exercise should take approximately **20** minutes to complete.
+
+## Skilling tasks
+
+* Enable Application Insights
+* Disable logging for .NET core snapshot debugger
+* Configure web app HTTP logs to be written to a Log Analytics workspace
+* Configure SQL Insights data to be written to a Log Analytics workspace
+* Enable file and configuration change tracking for web apps
+
+## Exercise instructions
+
+### Enable Application Insights
+
+1. In the Azure Portal Search Bar, enter **rg-alpha** and select **rg-alpha** from the list of results.
+2. From the list of items in the resource group, choose **App Services for the Web App with an SQL Database**.
+3. Under **Monitoring** choose **Application Insights**.
+4. On the **Application Insights** page, choose **Turn On Application Insights**.
+5. On the **Application Insights** page, ensure that **Create a new resource** is selected and that the Log Analytics Workspace is set to **LogAnalytics1** and choose **Apply**.
+6. On the **Apply monitoring settings** dialog, choose **Yes**.
+
+### Disable logging for .NET core snapshot debugger
+
+1. In the Azure Portal Search Bar, enter **rg-alpha** and select **rg-alpha** from the list of results.
+2. From the list of items in the resource group, choose **App Services for the Web App with an SQL Database**.
+3. Under **Monitoring** choose **Application Insights**.
+4. Under **Instrument your application**, choose **.NET Core** and then set the Snapshot Debugger setting to **Off**. Choose **Apply**.
+5. On the **Apply Monitoring Settings** dialog box, choose **Yes**.
+
+### Configure web app HTTP logs to be written to a Log Analytics workspace
+
+1. In the Azure Portal Search Bar, enter **rg-alpha** and select **rg-alpha** from the list of results.
+2. From the list of items in the resource group, choose **App Services for the Web App with an SQL Database**.
+3. Under **Monitoring**, choose **Diagnostic settings**.
+4. On the **Diagnostic settings** page, select **+ Add diagnostic settings**.
+5. On the **Diagnostic settings** page, choose the following and select **Save**.
+
+   | Property | Value |
+   | --- | --- |
+   | Diagnostic setting name | httplogs |
+   | Categories | HTTP logs |
+   | Destination details | Send to Log Analytics workspace |
+   | Subscription | Your subscription |
+   | Log Analytics workspace | LogAnalytics1 |
+
+### Configure SQL Insights data to be written to a Log Analytics workspace
+
+1. In the Azure Portal Search Bar, enter **rg-alpha** and select **rg-alpha** from the list of results.
+2. From the list of items in the resource group, choose the sample SQL database.
+3. Under **Monitoring**, choose **Diagnostic settings**.
+4. On the **Diagnostic settings** page, choose **Add diagnostic setting**.
+5. On the **Diagnostic setting page**, provide the following information and choose **Save**.
+
+   | Property | Value |
+   | --- | --- |
+   | Diagnostic setting name | InsightLogAnalytics |
+   | Categories | SQL Insights |
+   | Destination details | Send to Log Analytics workspace |
+   | Subscription | Your subscription |
+   | Log Analytics workspace | LogAnalytics1 |
+
