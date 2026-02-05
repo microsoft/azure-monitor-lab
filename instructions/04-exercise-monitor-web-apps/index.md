@@ -78,4 +78,3 @@ This exercise should take approximately **20** minutes to complete.
    | Destination details | Send to Log Analytics workspace |
    | Subscription | Your subscription |
    | Log Analytics workspace | LogAnalytics1 |
-
