@@ -1,0 +1,34 @@
+site_name: Azure Monitor Lab
+site_description: Hands-on lab for configuring monitoring of various workloads and infrastructure services using Azure Monitor
+site_author: Microsoft
+docs_dir: instructions
+
+theme:
+  name: material
+  palette:
+    primary: blue
+    accent: blue
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - toc.integrate
+
+nav:
+  - Home: index.md
+  - Introduction: 01-introduction/index.md
+  - Prepare Azure Environment: 02-prepare-azure-environment/index.md
+  - 'Exercise 1: Deploy Log Analytics': 03-exercise-deploy-log-analytics/index.md
+  - 'Exercise 2: Monitor Web Apps': 04-exercise-monitor-web-apps/index.md
+  - 'Exercise 3: Configure Monitoring for Compute Services': 05-exercise-configure-monitoring-compute-services/index.md
+  - 'Exercise 4: Configure Alerts': 06-exercise-configure-alerts/index.md
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - pymdownx.details
+  - tables
+  - toc:
+      permalink: true

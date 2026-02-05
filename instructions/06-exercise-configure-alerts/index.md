@@ -56,4 +56,3 @@ This exercise should take approximately **10** minutes to complete.
 ## Clean up subscription
 
 To clean up the subscription, delete resource group **rg-alpha** and delete the **App Log Examiners** security group.
-
