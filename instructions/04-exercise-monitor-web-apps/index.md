@@ -79,6 +79,6 @@ This exercise should take approximately **20** minutes to complete.
    | Subscription | Your subscription |
    | Log Analytics workspace | LogAnalytics1 |
 
-Next step: [Monitor Compute Services] (https://microsoft.github.io/azure-monitor-lab/instructions/05-execise-configure-monitoring-compute-services/)
+Next step: [Monitor Compute Services](https://microsoft.github.io/azure-monitor-lab/instructions/05-execise-configure-monitoring-compute-services/)
 
 [Click here to navigate to this page on the GitHub repo if not using pages](https://github.com/microsoft/azure-monitor-lab/blob/main/instructions/05-exercise-configure-monitoring-compute-services/index.md)
