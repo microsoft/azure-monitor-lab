@@ -107,3 +107,5 @@ This exercise should take approximately **10** minutes to complete.
 5. On the list of roles, select **Log Analytics Reader** and choose **Next**.
 6. On the **Members** page, choose **Select Members** and choose the App Log Examiners security group. **Choose Select**.
 7. On the **Members** step, choose **Review + Assign**.
+
+Next step: Monitor Web Apps [Click here to navigate to this page on the GitHub repo if not using pages](https://github.com/microsoft/azure-monitor-lab/blob/main/instructions/04-exercise-monitor-web-apps/index.md)

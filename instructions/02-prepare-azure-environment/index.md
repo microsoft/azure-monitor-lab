@@ -177,3 +177,5 @@ In this exercise you deploy and configure a Linux virtual machine.
    | Linux Fx version | php\|7.4 |
 
 5. Review the information and choose **Create**.
+
+Next step: Deploy Log Analytics [Click here to navigate to this page on the GitHub repo if not using pages](https://github.com/microsoft/azure-monitor-lab/blob/main/instructions/03-exercise-deploy-log-analytics/index.md)

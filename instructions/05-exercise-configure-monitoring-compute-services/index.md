@@ -117,3 +117,5 @@ This exercise should take approximately **15** minutes to complete.
 9. Choose **Add Destinations**. Select **Azure Endpoints** and set the type to **Virtual machines**. Select **Subnet** and then enable the **WS-VM1** checkbox. Select **Add Endpoints**.
 10. Choose **Add Test Group**.
 11. Choose **Review and Create** and then choose **Create**.
+
+Next step: Configure Alerts [Click here to navigate to this page on the GitHub repo if not using pages](https://github.com/microsoft/azure-monitor-lab/blob/main/instructions/05-exercise-configure-alerts/index.md)
