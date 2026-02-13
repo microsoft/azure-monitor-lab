@@ -18,3 +18,5 @@ By the end of this guided exercise, you gain hands-on experience in creating and
 | **Monitor web apps** | <ul><li> Enable Application Insights. </li><li> Disable logging for .NET core snapshot debugger. </li><li>  Configure Web apps to be written to a Log Analytics workspace. </li><li>  Enable file and configuration tracking for web apps.</li></ul>|
 | **Configure monitoring for compute services** | <ul><li> Create a data collection endpoint. </li><li> Create a data collection rule. </li><li> Add an IIS log collection to an existing data collection rule. </li><li> Configure Network Connection Monitor for a Linux IaaS virtual machine. </li></ul> |
 | **Configure alerts** |<ul><li> Create an action group to send an email. </li><li>  Create an alert for VM CPU utilization. </li><ul> |
+
+Next step: Prepare your Azure Environment [Click here for GitHub (https://github.com/microsoft/azure-monitor-lab/instructions/02-prepare-azure-environment/index.md)]
