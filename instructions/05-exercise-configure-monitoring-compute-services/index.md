@@ -118,7 +118,6 @@ This exercise should take approximately **15** minutes to complete.
 10. Choose **Add Test Group**.
 11. Choose **Review and Create** and then choose **Create**.
 
-Next step: Configure Alerts 
+Next step: [Configure Alerts](https://microsoft.github.io/azure-monitor-lab/instructions/06-exercise-configure-alerts/)
 
-- [Click here to navigate to this page](https://microsoft.github.io/azure-monitor-lab/instructions/05-exercise-configure-alerts/)
-- [Click here to navigate to this page on the GitHub repo if not using pages](https://github.com/microsoft/azure-monitor-lab/blob/main/instructions/05-exercise-configure-alerts/index.md)
+[Click here to navigate to Configure Alerts on the GitHub repo if not using pages](https://github.com/microsoft/azure-monitor-lab/blob/main/instructions/06-exercise-configure-alerts/index.md)

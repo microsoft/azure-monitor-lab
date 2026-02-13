@@ -178,7 +178,6 @@ In this exercise you deploy and configure a Linux virtual machine.
 
 5. Review the information and choose **Create**.
 
-Next step: Deploy Log Analytics 
+Next step: [Deploy Log Analytics](https://microsoft.github.io/azure-monitor-lab/instructions/03-exercise-deploy-log-analytics/)
 
-- [Click here to navigate to this page](https://microsoft.github.io/azure-monitor-lab/instructions/03-exercise-deploy-log-analytics/)
-- [Click here to navigate to this page on the GitHub repo if not using pages](https://github.com/microsoft/azure-monitor-lab/blob/main/instructions/03-exercise-deploy-log-analytics/index.md)
+[Click here to navigate to this page on the GitHub repo if not using pages](https://github.com/microsoft/azure-monitor-lab/blob/main/instructions/03-exercise-deploy-log-analytics/index.md)
