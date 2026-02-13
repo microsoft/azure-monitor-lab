@@ -27,17 +27,12 @@ By the end of this lab, you will be able to:
 |------|----------------|
 | Orin Thomas | [@Orin-Thomas](https://github.com/Orin-Thomas) |
 
-## 🏫 Getting Started in a Guided Session
+## 🏫 Getting Started t
 
-If you're participating in a guided session, your instructor will provide:
-
-- Access to an Azure subscription (or you can use your own)
-- Any additional setup instructions specific to the session
-- Support throughout the lab exercises
+- To complete this lab, you need access to an Azure subscription. 
+- You can use a [trial subscription](https://aka.ms/azure-free-account) (or you can use your own)
 
 To get started, navigate to the [lab instructions](instructions/index.md) and begin with the Introduction.
-
-## 🏠 Getting Started in Your Own Environment
 
 > **Note:** Completing this lab in your own Azure subscription will incur costs. Please review [Azure pricing](https://azure.microsoft.com/pricing/) to understand the potential charges.
 

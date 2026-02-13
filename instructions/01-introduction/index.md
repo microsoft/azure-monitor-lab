@@ -19,4 +19,7 @@ By the end of this guided exercise, you gain hands-on experience in creating and
 | **Configure monitoring for compute services** | <ul><li> Create a data collection endpoint. </li><li> Create a data collection rule. </li><li> Add an IIS log collection to an existing data collection rule. </li><li> Configure Network Connection Monitor for a Linux IaaS virtual machine. </li></ul> |
 | **Configure alerts** |<ul><li> Create an action group to send an email. </li><li>  Create an alert for VM CPU utilization. </li><ul> |
 
-Next step: Prepare your Azure Environment [Click here to navigate to this page on the GitHub repo if not using pages](https://github.com/microsoft/azure-monitor-lab/blob/main/instructions/02-prepare-azure-environment/index.md)
+Next step: Prepare your Azure Environment 
+
+- [Click here to navigate to this page](https://microsoft.github.io/azure-monitor-lab/instructions/02-prepare-azure-environment/)
+- [Click here to navigate to this page on the GitHub repo if not using pages](https://github.com/microsoft/azure-monitor-lab/blob/main/instructions/02-prepare-azure-environment/index.md)
