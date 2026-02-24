@@ -4,6 +4,8 @@
 
 This hands-on lab provides practical experience configuring monitoring solutions using Azure Monitor. Participants will deploy Log Analytics workspaces, enable Application Insights for web applications, configure data collection rules for compute services, and create alert notifications. By completing this lab, you'll gain the skills needed to implement comprehensive monitoring solutions for Azure workloads.
 
+![Azure Monitor Lab](azure-monitor-lab.png)
+
 ## 🧠 Learning Outcomes
 
 By the end of this lab, you will be able to:
