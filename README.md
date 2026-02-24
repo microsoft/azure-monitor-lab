@@ -65,3 +65,8 @@ If you encounter issues while working through the lab:
 - Review the exercise instructions carefully
 - Check the [Azure Monitor documentation](https://learn.microsoft.com/azure/azure-monitor/)
 - Ensure all prerequisites are met and resources are properly deployed
+
+## License
+
+The contents of this repository are licensed under the
+[Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
