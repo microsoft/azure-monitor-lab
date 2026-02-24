@@ -29,9 +29,9 @@ By the end of this lab, you will be able to:
 |------|----------------|
 | Orin Thomas | [@Orin-Thomas](https://github.com/Orin-Thomas) |
 
-## 🏫 Getting Started t
+## 🏫 Getting Started
 
-- To complete this lab, you need access to an Azure subscription. 
+- To complete this lab, you need access to an Azure subscription.
 - You can use a [trial subscription](https://aka.ms/azure-free-account) (or you can use your own)
 
 To get started, navigate to the [lab instructions](instructions/index.md) and begin with the Introduction.
