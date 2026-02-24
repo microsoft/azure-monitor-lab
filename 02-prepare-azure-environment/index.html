@@ -1,0 +1,963 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Hands-on lab for configuring monitoring of various workloads and infrastructure services using Azure Monitor">
+      
+      
+        <meta name="author" content="Microsoft">
+      
+      
+      
+        <link rel="prev" href="../01-introduction/">
+      
+      
+        <link rel="next" href="../03-exercise-deploy-log-analytics/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+    
+    
+      
+        <title>Prepare Azure Environment - Azure Monitor Lab</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#prepare-your-bring-your-own-subscription-byos" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Azure Monitor Lab" class="md-header__button md-logo" aria-label="Azure Monitor Lab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Azure Monitor Lab
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Prepare Azure Environment
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Azure Monitor Lab" class="md-nav__button md-logo" aria-label="Azure Monitor Lab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Azure Monitor Lab
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prepare Azure Environment
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prepare Azure Environment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prepare-your-bring-your-own-subscription-byos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prepare your bring-your-own-subscription (BYOS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prepare your bring-your-own-subscription (BYOS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prepare-your-bring-your-own-subscription-byos_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prepare your bring-your-own-subscription (BYOS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-app-log-examiners-security-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create App Log Examiners security group
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-and-configure-ws-vm1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deploy and configure WS-VM1
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-and-configure-lx-vm2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deploy and configure LX-VM2
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-a-web-app-with-an-sql-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deploy a web app with an SQL Database
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-a-linux-web-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deploy a Linux web app
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-exercise-deploy-log-analytics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exercise 1: Deploy Log Analytics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-exercise-monitor-web-apps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exercise 2: Monitor Web Apps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-exercise-configure-monitoring-compute-services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exercise 3: Configure Monitoring for Compute Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-exercise-configure-alerts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exercise 4: Configure Alerts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Prepare Azure Environment</h1>
+
+<p>You must first complete the following exercise to prepare your Azure environment before you begin the lab exercises.</p>
+<p><strong>Exercise: Prepare your Azure Environment</strong></p>
+<p><strong>Tasks</strong>:
+- Create a Log Analytics workspace.
+- Configure Log Analytics data retention and archive policies.
+- Enable access to a Log Analytics workspace.</p>
+<blockquote>
+<p>[!NOTE]
+To complete this lab you need an <a href="https://azure.microsoft.com/pricing/purchase-options/azure-account?cid=msft_devrel">Azure subscription</a>.</p>
+</blockquote>
+<h2 id="prepare-your-bring-your-own-subscription-byos">Prepare your bring-your-own-subscription (BYOS)<a class="headerlink" href="#prepare-your-bring-your-own-subscription-byos" title="Permanent link">&para;</a></h2>
+<p>This exercise should take approximately <strong>30</strong> minutes to complete.</p>
+<h3 id="prepare-your-bring-your-own-subscription-byos_1">Prepare your bring-your-own-subscription (BYOS)<a class="headerlink" href="#prepare-your-bring-your-own-subscription-byos_1" title="Permanent link">&para;</a></h3>
+<p>This set of lab exercises assumes that you have global administrator permissions to an Azure subscription.</p>
+<ol>
+<li>In the Azure Portal Search Bar, enter <strong>Resource Groups</strong> and select <strong>Resource groups</strong> from the list of results.</li>
+<li>On the <strong>Resource Groups</strong> page, select <strong>Create</strong>.</li>
+<li>On the <strong>Create a Resource Group</strong> page, select your subscription and enter the name rg-alpha. Set the region to East US, choose <strong>Review + Create</strong>, and then choose <strong>Create</strong>.</li>
+</ol>
+<blockquote>
+<p><strong>Note:</strong> This set of exercises assumes that you choose to deploy in the East US Region, but you can change this to another region if you choose. Just remember that each time you see East US mentioned in these instructions you will need to substitute the region you have chosen.</p>
+</blockquote>
+<h2 id="create-app-log-examiners-security-group">Create App Log Examiners security group<a class="headerlink" href="#create-app-log-examiners-security-group" title="Permanent link">&para;</a></h2>
+<p>In this exercise, you create an Entra ID security group.</p>
+<ol>
+<li>In the Azure Portal Search Bar, enter Azure Active Directory (or Entra ID) from the list of results.</li>
+<li>On the <strong>Default Directory</strong> page, select <strong>Groups</strong>.</li>
+<li>On the <strong>Groups</strong> page, choose <strong>New Group</strong>.</li>
+<li>On the <strong>New Group</strong> page, provide the values in the following table and choose <strong>Create</strong>.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Group type</td>
+<td>Security</td>
+</tr>
+<tr>
+<td>Group name</td>
+<td>App Log Examiners</td>
+</tr>
+<tr>
+<td>Group description</td>
+<td>App Log Examiners</td>
+</tr>
+</tbody>
+</table>
+<h2 id="deploy-and-configure-ws-vm1">Deploy and configure WS-VM1<a class="headerlink" href="#deploy-and-configure-ws-vm1" title="Permanent link">&para;</a></h2>
+<p>In this exercise, you deploy and configure a Windows Server virtual machine.</p>
+<ol>
+<li>In the Azure Portal Search Bar, enter <strong>Virtual Machines</strong> and select <strong>Virtual Machines</strong> from the list of results.</li>
+<li>On the <strong>Virtual Machines</strong> page, choose <strong>Create</strong> and select <strong>Azure Virtual Machine</strong>.</li>
+<li>On the <strong>Basics</strong> page of the Create A Virtual Machine wizard, select the following settings and then choose <strong>Review + Create</strong>.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Subscription</td>
+<td>Your subscription</td>
+</tr>
+<tr>
+<td>Resource Group</td>
+<td>rg-alpha</td>
+</tr>
+<tr>
+<td>Virtual machine name</td>
+<td>WS-VM1</td>
+</tr>
+<tr>
+<td>Region</td>
+<td>East US</td>
+</tr>
+<tr>
+<td>Availability options</td>
+<td>No infrastructure redundancy required</td>
+</tr>
+<tr>
+<td>Security type</td>
+<td>Standard</td>
+</tr>
+<tr>
+<td>Image</td>
+<td>Windows Server 2022 Datacenter: Azure Edition – x64 Gen2</td>
+</tr>
+<tr>
+<td>VM architecture</td>
+<td>x64</td>
+</tr>
+<tr>
+<td>Size</td>
+<td>Standard_D4s_v3 – 4 vcpus, 16 GiB memory</td>
+</tr>
+<tr>
+<td>Administrator account</td>
+<td>prime</td>
+</tr>
+<tr>
+<td>Password</td>
+<td>[Select a unique secure password] P@ssw0rdP@ssw0rd</td>
+</tr>
+<tr>
+<td>Inbound ports</td>
+<td>RDP 3389</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>Review the settings and select <strong>Create</strong>.</li>
+<li>Wait for the deployment to complete. Once deployment completes choose <strong>Go to resource</strong>.</li>
+<li>On the <strong>WS-VM1 properties</strong> page, choose <strong>Networking</strong>.</li>
+<li>On the <strong>Networking</strong> page, select the RDP rule.</li>
+<li>On the RDP rule space, change the Source to My IP address and choose <strong>Save</strong>.</li>
+</ol>
+<p>This restricts incoming RDP connections to the IP address you're currently using.</p>
+<ol>
+<li>On the <strong>Networking</strong> page, choose <strong>Add inbound port rule</strong>.</li>
+<li>
+<p>On the <strong>Add inbound security rule</strong> page, configure the following settings and choose <strong>Add</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source</td>
+<td>Any</td>
+</tr>
+<tr>
+<td>Source port ranges</td>
+<td>*</td>
+</tr>
+<tr>
+<td>Destination</td>
+<td>Any</td>
+</tr>
+<tr>
+<td>Service</td>
+<td>HTTP</td>
+</tr>
+<tr>
+<td>Action</td>
+<td>Allow</td>
+</tr>
+<tr>
+<td>Priority</td>
+<td>310</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>AllowAnyHTTPInbound</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>On the <strong>WS-VM1</strong> page, choose <strong>Connect</strong>.</p>
+</li>
+<li>Under Native RDP, choose <strong>Select</strong>.</li>
+<li>On the <strong>Native RDP</strong> page, choose <strong>Download RDP file</strong> and then open the file. Opening the RDP file opens the Remote Desktop Connection dialog box.</li>
+<li>On the <strong>Windows Security</strong> dialog box, choose <strong>More Choices</strong> and then choose Use a different account.</li>
+<li>Enter the username as .\prime and the password as the secure password you chose in Step 3, and choose <strong>OK</strong>.</li>
+<li>When signed into the Windows Server virtual machine, right-click on the <strong>Start</strong> hint and then choose <strong>Windows PowerShell (Admin)</strong>.</li>
+<li>
+<p>At the elevated command prompt, type the following command and press <strong>Enter</strong>.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Install-WindowsFeature</span> <span class="n">Web-Server</span> <span class="n">-IncludeAllSubFeature</span> <span class="n">-IncludeManagementTools</span>
+</code></pre></div>
+</li>
+<li>
+<p>When the installation completes run the following command to change to the web server root directory.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd </span><span class="n">c</span><span class="p">:\</span><span class="n">inetpub</span><span class="p">\</span><span class="n">wwwroot</span><span class="p">\</span>
+</code></pre></div>
+</li>
+<li>
+<p>Run the following command.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Wget </span><span class="n">https</span><span class="p">://</span><span class="n">raw</span><span class="p">.</span><span class="n">githubusercontent</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">Azure-Samples</span><span class="p">/</span><span class="n">html-docs-hello-world</span><span class="p">/</span><span class="n">master</span><span class="p">/</span><span class="n">index</span><span class="p">.</span><span class="n">html</span> <span class="n">-OutFile</span> <span class="n">index</span><span class="p">.</span><span class="n">html</span>
+</code></pre></div>
+</li>
+</ol>
+<h2 id="deploy-and-configure-lx-vm2">Deploy and configure LX-VM2<a class="headerlink" href="#deploy-and-configure-lx-vm2" title="Permanent link">&para;</a></h2>
+<p>In this exercise you deploy and configure a Linux virtual machine.</p>
+<ol>
+<li>In the Azure Portal Search Bar, enter <strong>Virtual Machines</strong> and select <strong>Virtual Machines</strong> from the list of results.</li>
+<li>On the <strong>Virtual Machines</strong> page, choose <strong>Create</strong> and select <strong>Azure Virtual Machine</strong>.</li>
+<li>On the <strong>Basics</strong> page of the Create A Virtual Machine wizard, select the following settings and then choose <strong>Review + Create</strong>.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Subscription</td>
+<td>Your subscription</td>
+</tr>
+<tr>
+<td>Resource Group</td>
+<td>rg-alpha</td>
+</tr>
+<tr>
+<td>Virtual machine name</td>
+<td>Linux-VM2</td>
+</tr>
+<tr>
+<td>Region</td>
+<td>East US</td>
+</tr>
+<tr>
+<td>Availability options</td>
+<td>No infrastructure redundancy required</td>
+</tr>
+<tr>
+<td>Security type</td>
+<td>Standard</td>
+</tr>
+<tr>
+<td>Image</td>
+<td>Ubuntu Server 20.04 LTS – x64 Gen2</td>
+</tr>
+<tr>
+<td>VM architecture</td>
+<td>x64</td>
+</tr>
+<tr>
+<td>Size</td>
+<td>Standard_D2s_v3 – 2 vcpus, 8 GiB memory</td>
+</tr>
+<tr>
+<td>Authentication type</td>
+<td>Password</td>
+</tr>
+<tr>
+<td>Username</td>
+<td>Prime</td>
+</tr>
+<tr>
+<td>Password</td>
+<td>[Select a unique secure password] P@ssw0rdP@ssw0rd</td>
+</tr>
+<tr>
+<td>Public inbound ports</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>Review the information and choose <strong>Create</strong>.</li>
+<li>After the VM deploys, open the <strong>VM properties</strong> page and choose <strong>Extensions + Applications</strong> under <strong>Settings</strong>.</li>
+<li>Choose <strong>Add</strong> and select the <strong>Network Watcher Agent for Linux</strong>. Choose <strong>Next</strong> and then choose <strong>Review and Create</strong>. Choose <strong>Create</strong>.</li>
+</ol>
+<blockquote>
+<p><strong>Note:</strong> The installation and configuration of the OmsAgentForLinux extension will be performed in Exercise 2 after the Log Analytics workspace is created.</p>
+</blockquote>
+<h2 id="deploy-a-web-app-with-an-sql-database">Deploy a web app with an SQL Database<a class="headerlink" href="#deploy-a-web-app-with-an-sql-database" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Ensure that you're signed into the Azure Portal.</li>
+<li>In your browser, open a new browser tab and navigate to https://github.com/Azure/azure-quickstart-templates/tree/master/quickstarts/microsoft.web/web-app-sql-database</li>
+<li>On the GitHub page, choose <strong>Deploy to Azure</strong>.</li>
+<li>A new tab opens. If necessary, re-sign into Azure with the account that has Global Administrator privileges.</li>
+<li>On the <strong>Basics</strong> page, select <strong>Edit template</strong>.</li>
+<li>In the template editor, delete the contents of lines 158 to 174 inclusive and delete the "," on line 157. Choose <strong>Save</strong>.</li>
+<li>On the <strong>Basics</strong> page, provide the following information and choose <strong>Next</strong>.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Subscription</td>
+<td>Your subscription</td>
+</tr>
+<tr>
+<td>Resource Group</td>
+<td>rg-alpha</td>
+</tr>
+<tr>
+<td>Region</td>
+<td>East US</td>
+</tr>
+<tr>
+<td>Sku Name</td>
+<td>F1</td>
+</tr>
+<tr>
+<td>Sku Capacity</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Sql Administrator Login</td>
+<td>prime</td>
+</tr>
+<tr>
+<td>Sql Administrator Login Password</td>
+<td>[Select a unique secure password] P@ssw0rdP@ssw0rd</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>Review the information presented and select <strong>Create</strong>.</li>
+<li>After the deployment completes, choose <strong>Go to resource group</strong>.</li>
+</ol>
+<h2 id="deploy-a-linux-web-app">Deploy a Linux web app<a class="headerlink" href="#deploy-a-linux-web-app" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Ensure that you're signed into the Azure Portal.</li>
+<li>In your browser, open a new browser tab and navigate to https://learn.microsoft.com/en-us/samples/azure/azure-quickstart-templates/webapp-basic-linux/</li>
+<li>On the GitHub page, choose <strong>Deploy to Azure</strong>.</li>
+<li>On the <strong>Basics</strong> page, provide the following information and choose <strong>Next</strong>.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Subscription</td>
+<td>Your subscription</td>
+</tr>
+<tr>
+<td>Resource Group</td>
+<td>rg-alpha</td>
+</tr>
+<tr>
+<td>Region</td>
+<td>East US</td>
+</tr>
+<tr>
+<td>Web app Name</td>
+<td>AzureLinuxAppWXYZ (assign a random number to the final four characters of the name)</td>
+</tr>
+<tr>
+<td>Sku</td>
+<td>S1</td>
+</tr>
+<tr>
+<td>Linux Fx version</td>
+<td>php|7.4</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>Review the information and choose <strong>Create</strong>.</li>
+</ol>
+<p>Next step: <a href="https://microsoft.github.io/azure-monitor-lab/instructions/03-exercise-deploy-log-analytics/">Deploy Log Analytics</a></p>
+<p><a href="https://github.com/microsoft/azure-monitor-lab/blob/main/instructions/03-exercise-deploy-log-analytics/index.md">Click here to navigate to this page on the GitHub repo if not using pages</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "toc.integrate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,748 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Hands-on lab for configuring monitoring of various workloads and infrastructure services using Azure Monitor">
+      
+      
+        <meta name="author" content="Microsoft">
+      
+      
+      
+        <link rel="prev" href="../02-prepare-azure-environment/">
+      
+      
+        <link rel="next" href="../04-exercise-monitor-web-apps/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+    
+    
+      
+        <title>Exercise 1: Deploy Log Analytics - Azure Monitor Lab</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#skilling-tasks" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Azure Monitor Lab" class="md-header__button md-logo" aria-label="Azure Monitor Lab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Azure Monitor Lab
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Exercise 1: Deploy Log Analytics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Azure Monitor Lab" class="md-nav__button md-logo" aria-label="Azure Monitor Lab" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Azure Monitor Lab
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-prepare-azure-environment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prepare Azure Environment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exercise 1: Deploy Log Analytics
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exercise 1: Deploy Log Analytics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#skilling-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Skilling tasks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Skilling tasks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#skilling-tasks_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Skilling tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise instructions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercise instructions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-a-log-analytics-workspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a Log Analytics workspace
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-and-configure-the-azure-monitor-agent-on-linux-vm-using-a-data-collection-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install and configure the Azure Monitor Agent on Linux-VM using a Data Collection Rule
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Install and configure the Azure Monitor Agent on Linux-VM using a Data Collection Rule">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verify-agent-installation-and-data-ingestion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify agent installation and data ingestion:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-log-analytics-data-retention-and-archive-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configure Log Analytics data retention and archive policies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enable-access-to-a-log-analytics-workspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enable access to a Log Analytics workspace
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-exercise-monitor-web-apps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exercise 2: Monitor Web Apps
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-exercise-configure-monitoring-compute-services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exercise 3: Configure Monitoring for Compute Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-exercise-configure-alerts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exercise 4: Configure Alerts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Exercise 1: Deploy Log Analytics</h1>
+
+<p>This guided project consists of the four exercises:</p>
+<ul>
+<li><strong>Exercise 1: Deploy Log Analytics</strong></li>
+<li>Exercise 2: Monitor web apps</li>
+<li>Exercise 3: Configure monitoring for compute services</li>
+<li>Exercise 4: Configure alerts</li>
+</ul>
+<p>In Exercise 1, you deploy and configure a Log Analytics workspace</p>
+<ul>
+<li>Task 1: Create a Log Analytics workspace.</li>
+<li>Task 2: Configure Log Analytics data retention and archive policies.</li>
+<li>Task 3: Enable access to a Log Analytics workspace.</li>
+</ul>
+<blockquote>
+<p>[!NOTE]
+To complete this lab you will need an <a href="https://azure.microsoft.com/pricing/purchase-options/azure-account?cid=msft_devrel">Azure subscription</a>.</p>
+</blockquote>
+<p>I'll fetch that page and convert it to markdown for you.Here's the page converted to clean markdown:</p>
+<h2 id="skilling-tasks">Skilling tasks<a class="headerlink" href="#skilling-tasks" title="Permanent link">&para;</a></h2>
+<p>This exercise should take approximately <strong>10</strong> minutes to complete.</p>
+<h3 id="skilling-tasks_1">Skilling tasks<a class="headerlink" href="#skilling-tasks_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Create a Log Analytics workspace</li>
+<li>Configure Log Analytics data retention and archive policies</li>
+<li>Enable access to a Log Analytics workspace</li>
+</ul>
+<h2 id="exercise-instructions">Exercise instructions<a class="headerlink" href="#exercise-instructions" title="Permanent link">&para;</a></h2>
+<h3 id="create-a-log-analytics-workspace">Create a Log Analytics workspace<a class="headerlink" href="#create-a-log-analytics-workspace" title="Permanent link">&para;</a></h3>
+<ol>
+<li>In the Azure Portal Search Bar, enter <strong>Log Analytics</strong> and select <strong>Log Analytics workspaces</strong> from the list of results.</li>
+<li>On the <strong>Log Analytics workspaces</strong> page, choose <strong>Create</strong>.</li>
+<li>On the <strong>Basics</strong> page of the Create Log Analytics workspace wizard, provide the following information and choose <strong>Review + Create</strong>.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Subscription</td>
+<td>Your subscription</td>
+</tr>
+<tr>
+<td>Resource Group</td>
+<td>rg-alpha</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>LogAnalytics1</td>
+</tr>
+<tr>
+<td>Region</td>
+<td>East US</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>Choose <strong>Review + Create</strong>.</li>
+<li>Review the information and choose <strong>Create</strong>.</li>
+</ol>
+<h3 id="install-and-configure-the-azure-monitor-agent-on-linux-vm-using-a-data-collection-rule">Install and configure the Azure Monitor Agent on Linux-VM using a Data Collection Rule<a class="headerlink" href="#install-and-configure-the-azure-monitor-agent-on-linux-vm-using-a-data-collection-rule" title="Permanent link">&para;</a></h3>
+<ol>
+<li>In the Azure Portal, enter <strong>Data Collection Rules</strong> in the search bar and select <strong>Data Collection Rules</strong> from the results.</li>
+<li>Select <strong>+ Create</strong> to start a new data collection rule.</li>
+<li>On the <strong>Basics</strong> page, provide the following:</li>
+<li><strong>Rule name:</strong> DCR-Linux-VM</li>
+<li><strong>Subscription:</strong> Your subscription</li>
+<li><strong>Resource Group:</strong> rg-alpha</li>
+<li><strong>Region:</strong> East US (choose the region matching your VM/workspace)</li>
+<li><strong>Platform type:</strong> Select Linux</li>
+<li>Select <strong>Next: Resources &gt;</strong></li>
+<li>Under <strong>Resources</strong>, select <strong>+ Add resources</strong>.</li>
+<li>Search for and select <strong>Linux-VM</strong>.</li>
+<li>Select <strong>Apply</strong>.</li>
+<li>Select <strong>Next: Collect and deliver &gt;</strong></li>
+<li>In the <strong>Collect and deliver</strong> tab:</li>
+<li>Select <strong>+ Add data source</strong>.</li>
+<li>For <strong>Data source type</strong>, choose <strong>Performance Counters</strong>.</li>
+<li>Select <strong>Next: Destination &gt;</strong>.</li>
+<li>Select <strong>+ Add destination</strong>.</li>
+<li>Under <strong>Destination type</strong> choose <strong>Azure Monitor Logs</strong>.</li>
+<li>Under <strong>Destination Details</strong> choose <strong>LogAnalytics1 (rg-alpha)</strong>.</li>
+<li>Select <strong>Add data source</strong>.</li>
+<li>Select <strong>Next: Review + create</strong></li>
+<li>On the <strong>Review + create</strong> page, review your selections, and select <strong>Create</strong> to deploy the DCR.</li>
+</ol>
+<blockquote>
+<p><strong>Note:</strong> Assigning a DCR to a VM automatically deploys the Azure Monitor Agent extension to the VM. You do <strong>NOT</strong> need to manually add the agent in the Extensions blade.</p>
+</blockquote>
+<h4 id="verify-agent-installation-and-data-ingestion">Verify agent installation and data ingestion:<a class="headerlink" href="#verify-agent-installation-and-data-ingestion" title="Permanent link">&para;</a></h4>
+<ol>
+<li>In the Azure Portal, use the search bar to search for <strong>Log Analytics workspaces</strong> and select it from the results.</li>
+<li>In the list of workspaces, select <strong>LogAnalytics1</strong>.</li>
+<li>In the left-hand menu of the LogAnalytics1 workspace, select <strong>Logs</strong>.</li>
+<li>Use the mode drop-down to change from <strong>Simple mode</strong> to <strong>KQL mode</strong>.</li>
+<li>In the query window, enter the following query:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>Heartbeat
+| where Computer contains &quot;Linux-VM&quot;
+| sort by TimeGenerated desc
+</code></pre></div>
+<ol>
+<li>Select <strong>Run</strong> or press <strong>Shift + Enter</strong> to execute the query.</li>
+<li>If results are returned, data is flowing and the Azure Monitor Agent is working.</li>
+</ol>
+<h3 id="configure-log-analytics-data-retention-and-archive-policies">Configure Log Analytics data retention and archive policies<a class="headerlink" href="#configure-log-analytics-data-retention-and-archive-policies" title="Permanent link">&para;</a></h3>
+<ol>
+<li>In the Azure Portal Search Bar, enter <strong>Log Analytics</strong> and select <strong>Log Analytics workspaces</strong> from the list of results.</li>
+<li>On the <strong>Log Analytics workspaces</strong> page, choose <strong>LogAnalytics1</strong>.</li>
+<li>On the <strong>Log Analytics workspace</strong> page for LogAnalytics1, under <strong>Settings</strong>, choose <strong>Usage and estimated costs</strong>.</li>
+<li>Select <strong>Data Retention</strong> and set the slider to 60 days. Select <strong>OK</strong>.</li>
+<li>On the <strong>Log Analytics workspace</strong> page for LogAnalytics1, choose <strong>Usage and estimated costs</strong>.</li>
+<li>Select <strong>Daily cap</strong>. Select <strong>On</strong>. Set the daily cap to 10 GB and select <strong>OK</strong>.</li>
+</ol>
+<h3 id="enable-access-to-a-log-analytics-workspace">Enable access to a Log Analytics workspace<a class="headerlink" href="#enable-access-to-a-log-analytics-workspace" title="Permanent link">&para;</a></h3>
+<ol>
+<li>In the Azure Portal Search Bar, enter <strong>Log Analytics</strong> and select <strong>Log Analytics workspaces</strong> from the list of results.</li>
+<li>On the <strong>Log Analytics workspaces</strong> page, choose <strong>LogAnalytics1</strong>.</li>
+<li>Select <strong>Access control (IAM)</strong>.</li>
+<li>Choose <strong>Add</strong> and then choose <strong>Add role assignment</strong>.</li>
+<li>On the list of roles, select <strong>Log Analytics Reader</strong> and choose <strong>Next</strong>.</li>
+<li>On the <strong>Members</strong> page, choose <strong>Select Members</strong> and choose the App Log Examiners security group. <strong>Choose Select</strong>.</li>
+<li>On the <strong>Members</strong> step, choose <strong>Review + Assign</strong>.</li>
+</ol>
+<p>Next step: <a href="https://microsoft.github.io/azure-monitor-lab/instructions/04-exercise-monitor-web-apps/">Monitor Web Apps</a></p>
+<p><a href="https://github.com/microsoft/azure-monitor-lab/blob/main/instructions/04-exercise-monitor-web-apps/index.md">Click here to navigate to this page on the GitHub repo if not using pages</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "toc.integrate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
